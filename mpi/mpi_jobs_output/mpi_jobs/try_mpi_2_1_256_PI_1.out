@@ -1,0 +1,70 @@
+Sender: LSF System <lsfadmin@polus-c3-ib.bmc.hpc.cs.msu.ru>
+Subject: Job 1371656: <# this file was automaticly created by mpisubmit.pl script for edu-cmc-skmodel25-628-11 #;source /polusfs/setenv/setup.SMPI;#BSUB -n 2;#BSUB -W 00:30;#BSUB -o try_mpi_2_1_256_PI_1.out;#BSUB -e try_mpi_2_1_256_PI_1.err;OMP_NUM_THREADS=1 mpiexec mpi_solve 256 PI> in cluster <MSUCluster> Done
+
+Job <# this file was automaticly created by mpisubmit.pl script for edu-cmc-skmodel25-628-11 #;source /polusfs/setenv/setup.SMPI;#BSUB -n 2;#BSUB -W 00:30;#BSUB -o try_mpi_2_1_256_PI_1.out;#BSUB -e try_mpi_2_1_256_PI_1.err;OMP_NUM_THREADS=1 mpiexec mpi_solve 256 PI> was submitted from host <polus-ib.bmc.hpc.cs.msu.ru> by user <edu-cmc-skmodel25-628-11> in cluster <MSUCluster> at Sat Nov 29 01:50:31 2025
+Job was executed on host(s) <2*polus-c3-ib.bmc.hpc.cs.msu.ru>, in queue <short>, as user <edu-cmc-skmodel25-628-11> in cluster <MSUCluster> at Sat Nov 29 01:50:49 2025
+</home_edu/edu-cmc-skmodel25-628/edu-cmc-skmodel25-628-11> was used as the home directory.
+</home_edu/edu-cmc-skmodel25-628/edu-cmc-skmodel25-628-11/tasks> was used as the working directory.
+Started at Sat Nov 29 01:50:49 2025
+Terminated at Sat Nov 29 01:51:27 2025
+Results reported at Sat Nov 29 01:51:27 2025
+
+Your job looked like:
+
+------------------------------------------------------------
+# LSBATCH: User input
+# this file was automaticly created by mpisubmit.pl script for edu-cmc-skmodel25-628-11 #
+source /polusfs/setenv/setup.SMPI
+#BSUB -n 2
+#BSUB -W 00:30
+#BSUB -o try_mpi_2_1_256_PI_1.out
+#BSUB -e try_mpi_2_1_256_PI_1.err
+OMP_NUM_THREADS=1 mpiexec mpi_solve 256 PI
+
+------------------------------------------------------------
+
+Successfully completed.
+
+Resource usage summary:
+
+    CPU time :                                   74.18 sec.
+    Max Memory :                                 524 MB
+    Average Memory :                             449.29 MB
+    Total Requested Memory :                     -
+    Delta Memory :                               -
+    Max Swap :                                   -
+    Max Processes :                              6
+    Max Threads :                                15
+    Run time :                                   39 sec.
+    Turnaround time :                            56 sec.
+
+The output (if any) follows:
+
+Running with N = 256 and L = 3.14159, processes = 2
+3D Grid decomposition: 2 x 1 x 1
+Max error at current step: 4.19923e-06
+Max error at current step: 9.44726e-06
+Max error at current step: 1.67926e-05
+Max error at current step: 2.62334e-05
+Max error at current step: 3.77672e-05
+Max error at current step: 5.1391e-05
+Max error at current step: 6.71014e-05
+Max error at current step: 8.48943e-05
+Max error at current step: 0.000104765
+Max error at current step: 0.000126709
+Max error at current step: 0.00015072
+Max error at current step: 0.000176791
+Max error at current step: 0.000204917
+Max error at current step: 0.000235091
+Max error at current step: 0.000267303
+Max error at current step: 0.000301547
+Max error at current step: 0.000337813
+Max error at current step: 0.000376092
+Final error: 0.000416374
+Elapsed time: 36.9004
+
+
+PS:
+
+Read file <try_mpi_2_1_256_PI_1.err> for stderr output of this job.
+

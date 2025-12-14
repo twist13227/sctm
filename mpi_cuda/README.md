@@ -3,10 +3,11 @@
 ## Сборка
 
 ```bash
+module load SpectrumMPI
 nvcc -O3 -arch=sm_35 -ccbin mpic++ -o mpi_cuda_solve mpi_cuda_solve.cu -x cu -Xcompiler -Wall -std=c++11
 ```
 
-## Необходимые бинари (есть в репозитории)
+## Необходимые бинари (есть в репозитории в соответствующих папках)
 
 - `serial_solve`
 - `mpi_solve`
@@ -28,4 +29,5 @@ chmod +x run_all_experiments.sh
 - `mpi_omp_20x8_N_1.out`
 - `cuda_1gpu_N_1.out`
 - `cuda_2gpu_N_1.out`
-для N = 256, 512, 768
+для N = 256, 512, 768.
+Пример полученных результатов приведён в `mpi_cuda_jobs_output.zip`.
