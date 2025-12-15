@@ -115,9 +115,9 @@ __global__ void core_kernel(const double* __restrict__ d_prev,
                             int alloc_nj, int alloc_nk,
                             double hx, double hy, double hz,
                             double a2, double tau) {
-    int ii = blockIdx.x * blockDim.x + threadIdx.x + 1;
+    int ii = blockIdx.z * blockDim.z + threadIdx.z + 1;
     int jj = blockIdx.y * blockDim.y + threadIdx.y + 1;
-    int kk = blockIdx.z * blockDim.z + threadIdx.z + 1;
+    int kk = blockIdx.x * blockDim.x + threadIdx.x + 1;
     if (ii > local_ni || jj > local_nj || kk > local_nk) return;
 
     const size_t di = (size_t)alloc_nj * alloc_nk;
@@ -149,9 +149,9 @@ __global__ void halo_kernel(const double* __restrict__ d_prev,
                             int alloc_ni, int alloc_nj, int alloc_nk,
                             double hx, double hy, double hz,
                             double a2, double tau) {
-    int ia = blockIdx.x * blockDim.x + threadIdx.x;
+    int ia = blockIdx.z * blockDim.z + threadIdx.z;
     int ja = blockIdx.y * blockDim.y + threadIdx.y;
-    int ka = blockIdx.z * blockDim.z + threadIdx.z;
+    int ka = blockIdx.x * blockDim.x + threadIdx.x;
 
     if (ia >= alloc_ni || ja >= alloc_nj || ka >= alloc_nk) return;
     if (ia >= 1 && ia <= local_ni && ja >= 1 && ja <= local_nj && ka >= 1 && ka <= local_nk) return;
@@ -186,10 +186,9 @@ __global__ void initial_step_kernel(
     int alloc_nj, int alloc_nk,
     double hx, double hy, double hz,
     double a2, double tau) {
-   
-    int ii = blockIdx.x * blockDim.x + threadIdx.x + 1;
+    int ii = blockIdx.z * blockDim.z + threadIdx.z + 1;
     int jj = blockIdx.y * blockDim.y + threadIdx.y + 1;
-    int kk = blockIdx.z * blockDim.z + threadIdx.z + 1;
+    int kk = blockIdx.x * blockDim.x + threadIdx.x + 1;
     if (ii > local_ni || jj > local_nj || kk > local_nk) return;
     const size_t di = (size_t)alloc_nj * alloc_nk;
     const size_t dj = (size_t)alloc_nk;
@@ -550,9 +549,9 @@ void do_time_step(MPI_Comm cart_comm,
     t_start = MPI_Wtime();
     dim3 core_block(8, 8, 8);
     dim3 core_grid(
-        (local_ni + core_block.x - 1) / core_block.x,
+        (local_nk + core_block.x - 1) / core_block.x,
         (local_nj + core_block.y - 1) / core_block.y,
-        (local_nk + core_block.z - 1) / core_block.z
+        (local_ni + core_block.z - 1) / core_block.z
     );
     core_kernel<<<core_grid, core_block>>>(d_prev, d_curr, d_next,
                                            local_ni, local_nj, local_nk,
@@ -595,9 +594,9 @@ void do_time_step(MPI_Comm cart_comm,
 
     dim3 halo_block(8, 8, 8);
     dim3 halo_grid(
-        (alloc_ni + halo_block.x - 1) / halo_block.x,
+        (alloc_nk + halo_block.x - 1) / halo_block.x,
         (alloc_nj + halo_block.y - 1) / halo_block.y,
-        (alloc_nk + halo_block.z - 1) / halo_block.z
+        (alloc_ni + halo_block.z - 1) / halo_block.z
     );
     halo_kernel<<<halo_grid, halo_block>>>(d_prev, d_curr, d_next,
                                            local_ni, local_nj, local_nk,
@@ -740,9 +739,9 @@ int main(int argc, char* argv[]) {
     double t_init_step = MPI_Wtime();
     dim3 init_block(8, 8, 8);
     dim3 init_grid(
-        (local_ni + init_block.x - 1) / init_block.x,
+        (local_nk + init_block.x - 1) / init_block.x,
         (local_nj + init_block.y - 1) / init_block.y,
-        (local_nk + init_block.z - 1) / init_block.z
+        (local_ni + init_block.z - 1) / init_block.z
     );
     initial_step_kernel<<<init_grid, init_block>>>(
         d_u_prev, d_u_curr,
